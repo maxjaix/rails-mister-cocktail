@@ -1,5 +1,4 @@
 class CocktailsController < ApplicationController
-
   def index
     @cocktails = Cocktail.all
   end
@@ -10,18 +9,20 @@ class CocktailsController < ApplicationController
 
   def create
     @cocktail = Cocktail.new(cocktail_params)
-      @cocktail.save!
+    @cocktail.save
 
+    # no need for app/views/restaurants/create.html.erb
     redirect_to cocktails_path
   end
 
   def show
     @cocktail = Cocktail.find(params[:id])
+    @dose = Dose.new
   end
 
   private
 
   def cocktail_params
-    params.require(:cocktail).permit(:name)
+    params.require(:cocktail).permit(:name, :picture_url)
   end
 end
